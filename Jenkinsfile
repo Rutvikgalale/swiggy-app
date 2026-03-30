@@ -1,7 +1,7 @@
 pipeline{
   agent any
   tools{
-    java21 "java21"
+    jdk "java21"
     nodejs "nodejs"
   }
   stages{
