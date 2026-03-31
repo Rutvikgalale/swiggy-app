@@ -21,7 +21,8 @@ pipeline{
     stage("sonarqube analysis"){
       steps{
         sh """
-          $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=swiggy-app -Dsonar.projectKey=swiggy-app
+          $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=swiggy-app -Dsonar.projectKey=swiggy-app \
+          -Dsonar.sources=src 
         """
       }
     }      
