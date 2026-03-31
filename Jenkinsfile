@@ -58,5 +58,10 @@ pipeline{
         }
       }
     }
+    stage("trivy image scan"){
+      steps{
+        sh "trivy image rutvikg/swiggy-app:latest > trivyimage.txt"
+      }
+    }
   }
 }
