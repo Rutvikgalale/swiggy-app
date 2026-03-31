@@ -63,5 +63,11 @@ pipeline{
         sh "trivy image rutvikg/swiggy-app:latest > trivyimage.txt"
       }
     }
+    stage("housekeeping"){
+      steps{
+        sh "docker rmi rutvikg/swiggy-app:latest"
+        sh "docker rmi swiggy-app:latest"
+      }
+    }
   }
 }
