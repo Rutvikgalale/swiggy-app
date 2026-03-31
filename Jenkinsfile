@@ -4,6 +4,9 @@ pipeline{
     jdk "java21"
     nodejs "nodejs"
   }
+  environment{
+    SCANNER_HOME=tool("sonar-scanner")
+  }
   stages{
     stage("cleaning workspace"){
       steps{
@@ -15,5 +18,12 @@ pipeline{
         git branch: "main", url: "https://github.com/Rutvikgalale/swiggy-app.git"
       }
     }
+    stage("sonarqube analysis"){
+      steps{
+        sh """
+          $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=swiggy-app -Dsonar.projectKey=swiggy-app
+        """
+      }
+    }      
   }
 }
