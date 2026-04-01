@@ -63,6 +63,21 @@ pipeline{
         sh "trivy image rutvikg/swiggy-app:latest > trivyimage.txt"
       }
     }
+    stage("deploy application to kubernetes"){
+      steps{
+        script{
+          dir("k8s"){
+            kubeconfig(credentialsId:"kubernetes", serverUrl: ""){
+              sh """
+              kubectl delete --all pods
+              kubectl apply -f deployment.yaml
+              kubectl apply -f service.yaml
+              """
+            }
+          }
+        }
+      }
+    }
     stage("housekeeping"){
       steps{
         sh "docker rmi rutvikg/swiggy-app:latest"
